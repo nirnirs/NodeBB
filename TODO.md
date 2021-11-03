@@ -1,6 +1,9 @@
-- show company on user's profile
+- show company on user's profile - done
 - hash email before writing/retreiving (try doing it with hook)
+- change it so that settings don't have email options.
+- make sure non-verified users can't post.
 - change all texts
 - add about page explaning stuff
 - optimize site
 - forward http ->https
+- differnet color scheme.
