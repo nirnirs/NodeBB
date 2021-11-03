@@ -1,0 +1,6 @@
+- show company on user's profile
+- hash email before writing/retreiving (try doing it with hook)
+- change all texts
+- add about page explaning stuff
+- optimize site
+- forward http ->https
