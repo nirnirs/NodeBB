@@ -1,4 +1,4 @@
-- show company on user's profile - done
+- show company on user's profile
 - hash email before writing/retreiving (try doing it with hook)
 - change it so that settings don't have email options.
 - make sure non-verified users can't post.
@@ -7,3 +7,7 @@
 - optimize site
 - forward http ->https
 - differnet color scheme.
+- also add company to "recent posts" page.
+- remove "powered by nodebb"
+- remove full name from all forms
+
