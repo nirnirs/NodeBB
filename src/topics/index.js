@@ -89,10 +89,11 @@ Topics.getTopicsByTids = async function (tids, options) {
 			});
 			return data;
 		}
+		const { userFields } = await plugins.hooks.fire('filter:topics.getUserFields', { userFields: ['uid', 'username', 'fullname', 'company', 'userslug', 'reputation', 'postcount', 'picture', 'signature', 'banned', 'status'] });
 
 		const [teasers, users, userSettings, categoriesData, guestHandles, thumbs] = await Promise.all([
 			Topics.getTeasers(topics, options),
-			user.getUsersFields(uids, ['uid', 'username', 'fullname', 'userslug', 'reputation', 'postcount', 'picture', 'signature', 'banned', 'status']),
+			user.getUsersFields(uids, userFields),
 			loadShowfullnameSettings(),
 			categories.getCategoriesFields(cids, ['cid', 'name', 'slug', 'icon', 'backgroundImage', 'imageClass', 'bgColor', 'color', 'disabled']),
 			loadGuestHandles(),
