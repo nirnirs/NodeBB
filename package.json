@@ -87,7 +87,7 @@
     "mousetrap": "^1.6.5",
     "multiparty": "4.2.2",
     "nconf": "^0.11.2",
-    "nodebb-plugin-anon": "git+http://github.com/nirnirs/nodebb-plugin-anon.git",
+    "nodebb-theme-anon": "git+http://github.com/nirnirs/nodebb-theme-anon.git",
     "nodebb-plugin-composer-default": "7.0.11",
     "nodebb-plugin-custom-pages": "^1.3.1",
     "nodebb-plugin-dbsearch": "5.0.5",
