@@ -10,4 +10,4 @@
 - also add company to "recent posts" page.
 - remove "powered by nodebb"
 - remove full name from all forms
-
+- get an email @techie.co.il that's working and send emails from it
