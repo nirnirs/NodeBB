@@ -11,6 +11,7 @@ const meta = require('../meta');
 const emailer = require('../emailer');
 const groups = require('../groups');
 const events = require('../events');
+const winston = require('winston');
 
 const UserEmail = module.exports;
 
@@ -103,10 +104,11 @@ UserEmail.sendValidationEmail = async function (uid, options) {
 	await db.pexpireAt(`confirm:byUid:${uid}`, Date.now() + (emailInterval * 60 * 1000));
 	confirm_code = await plugins.hooks.fire('filter:user.verify.code', confirm_code);
 
-	await db.setObject(`confirm:${confirm_code}`, {
+	const confirmationDataToWrite = await plugins.hooks.fire('filter:user.verify.confirmationDataToWrite', {
 		email: options.email.toLowerCase(),
 		uid: uid,
 	});
+	await db.setObject(`confirm:${confirm_code}`, confirmationDataToWrite);
 	await db.expireAt(`confirm:${confirm_code}`, Math.floor((Date.now() / 1000) + (60 * 60 * 24)));
 	const username = await user.getUserField(uid, 'username');
 
