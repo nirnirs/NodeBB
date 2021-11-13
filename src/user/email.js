@@ -140,7 +140,8 @@ UserEmail.sendValidationEmail = async function (uid, options) {
 
 // confirm email by code sent by confirmation email
 UserEmail.confirmByCode = async function (code, sessionId) {
-	const confirmObj = await db.getObject(`confirm:${code}`);
+	let confirmObj = await db.getObject(`confirm:${code}`);
+	({ confirmObj } = await plugins.hooks.fire('filter:user.confirm.confirmationDataFromRead', { confirmObj }));
 	if (!confirmObj || !confirmObj.uid || !confirmObj.email) {
 		throw new Error('[[error:invalid-data]]');
 	}
