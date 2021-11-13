@@ -12,7 +12,6 @@ const meta = require('../meta');
 const emailer = require('../emailer');
 const groups = require('../groups');
 const events = require('../events');
-const winston = require('winston');
 
 const UserEmail = module.exports;
 
