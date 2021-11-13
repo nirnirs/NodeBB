@@ -2,6 +2,7 @@
 'use strict';
 
 const nconf = require('nconf');
+const winston = require('winston');
 
 const user = require('./index');
 const utils = require('../utils');
@@ -70,6 +71,11 @@ UserEmail.sendValidationEmail = async function (uid, options) {
 	 * 		- force, sends email even if it is too soon to send another
 	 */
 
+	if (meta.config.sendValidationEmail !== 1) {
+		winston.verbose(`[user/email] Validation email for uid ${uid} not sent due to config settings`);
+		return;
+	}
+
 	options = options || {};
 
 	// Fallback behaviour (email passed in as second argument)
@@ -107,6 +113,7 @@ UserEmail.sendValidationEmail = async function (uid, options) {
 	await db.expireAt(`confirm:${confirm_code}`, Math.floor((Date.now() / 1000) + (60 * 60 * 24)));
 	const username = await user.getUserField(uid, 'username');
 
+	winston.verbose(`[user/email] Validation email for uid ${uid} sent to ${options.email}`);
 	events.log({
 		type: 'email-confirmation-sent',
 		uid,
@@ -139,6 +146,12 @@ UserEmail.confirmByCode = async function (code, sessionId) {
 	({ confirmObj } = await plugins.hooks.fire('filter:user.confirm.confirmationDataFromRead', { confirmObj }));
 	if (!confirmObj || !confirmObj.uid || !confirmObj.email) {
 		throw new Error('[[error:invalid-data]]');
+	}
+
+	// If another uid has the same email, remove it
+	const oldUid = await db.sortedSetScore('email:uid', confirmObj.email.toLowerCase());
+	if (oldUid) {
+		await UserEmail.remove(oldUid, sessionId);
 	}
 
 	const oldEmail = await user.getUserField(confirmObj.uid, 'email');
