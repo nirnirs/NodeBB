@@ -11,3 +11,5 @@
 - remove "powered by nodebb"
 - remove full name from all forms
 - get an email @techie.co.il that's working and send emails from it
+- only allow alerts via notifications and not email
+- fix broken image on validation email
