@@ -1,15 +1,16 @@
-- show company on user's profile
-- hash email before writing/retreiving (try doing it with hook)
+- forward http ->https - done
+- show company on user's profile - done
+- hash email before writing/retreiving (try doing it with hook) - done
+- support password recovery with hashed email
 - change it so that settings don't have email options.
 - make sure non-verified users can't post.
 - change all texts
 - add about page explaning stuff
 - optimize site
-- forward http ->https
 - differnet color scheme.
 - also add company to "recent posts" page.
 - remove "powered by nodebb"
 - remove full name from all forms
-- get an email @techie.co.il that's working and send emails from it
+- get an email @techie.co.il that's working and send emails from it - optional
 - only allow alerts via notifications and not email
 - fix broken image on validation email
