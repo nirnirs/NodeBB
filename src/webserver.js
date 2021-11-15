@@ -20,6 +20,7 @@ const useragent = require('express-useragent');
 const favicon = require('serve-favicon');
 const detector = require('spider-detector');
 const helmet = require('helmet');
+const enforce = require('express-sslify');
 
 const Benchpress = require('benchpressjs');
 const db = require('./database');
@@ -150,6 +151,12 @@ function setupExpressApp(app) {
 	app.use(cookieParser(nconf.get('secret')));
 	app.use(useragent.express());
 	app.use(detector.middleware());
+	if (nconf.get('force_ssl')) {
+		// Use enforce.HTTPS({ trustProtoHeader: true }) in case you are behind
+		// a load balancer (e.g. Heroku). See further comments below
+		app.use(enforce.HTTPS({ trustProtoHeader: true }));
+	}
+
 	app.use(session({
 		store: db.sessionStore,
 		secret: nconf.get('secret'),
