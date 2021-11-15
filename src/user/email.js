@@ -109,6 +109,10 @@ UserEmail.sendValidationEmail = async function (uid, options) {
 	await db.pexpireAt(`confirm:byUid:${uid}`, Date.now() + (emailInterval * 60 * 1000));
 	confirm_code = await plugins.hooks.fire('filter:user.verify.code', confirm_code);
 
+	await db.setObject(`confirm:${confirm_code}`, {
+		email: options.email.toLowerCase(),
+		uid: uid,
+	});
 	await db.expireAt(`confirm:${confirm_code}`, Math.floor((Date.now() / 1000) + (60 * 60 * 24)));
 	const username = await user.getUserField(uid, 'username');
 
@@ -142,6 +146,7 @@ UserEmail.sendValidationEmail = async function (uid, options) {
 // confirm email by code sent by confirmation email
 UserEmail.confirmByCode = async function (code, sessionId) {
 	let confirmObj = await db.getObject(`confirm:${code}`);
+	winston.info(`confirmObj=${JSON.stringify(confirmObj)}`);
 	({ confirmObj } = await plugins.hooks.fire('filter:user.confirm.confirmationDataFromRead', { confirmObj }));
 	if (!confirmObj || !confirmObj.uid || !confirmObj.email) {
 		throw new Error('[[error:invalid-data]]');
