@@ -1,12 +1,12 @@
 # P0
-- add about page explaning stuff
-- change it so that settings don't have email options.
-- make sure non-verified users can't post.
-- change all texts
-- differnet color scheme.
-- remove full name from all forms
-- only allow alerts via notifications and not email
 - change site icon
+- add about page explaning stuff (faq)
+- random user name suggestion.
+- change it alerts settings don't have email options.
+- make sure non-verified users can't post.
+- Update all texts (e.g. error message for emails with wrong domains)
+- differnet color scheme.
+- verify there's no full name from all forms
 
 # P1
 - optimize site
