@@ -1,14 +1,15 @@
 # P0
-- change site icon
 - add about page explaning stuff (faq)
 - random user name suggestion.
 - change it alerts settings don't have email options.
-- make sure non-verified users can't post.
 - Update all texts (e.g. error message for emails with wrong domains)
-- differnet color scheme.
 - verify there's no full name from all forms
+- make sure non-verified users can't post.
+- make sure users can't change interfae languages.
+
 
 # P1
+- differnet color scheme.
 - optimize site
 - support login with email
 - support password recovery with hashed email
