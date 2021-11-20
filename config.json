@@ -1,0 +1,9 @@
+{
+    "url": "https://www.techie.co.il",
+    "database": "redis",
+    "force_ssl": true,
+    "redis": {
+        "port": "15067",
+        "database": "0"
+    }
+}
