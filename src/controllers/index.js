@@ -2,6 +2,7 @@
 
 const nconf = require('nconf');
 const validator = require('validator');
+const nid = require('nid')({length:8})
 
 const meta = require('../meta');
 const user = require('../user');
@@ -166,11 +167,13 @@ Controllers.register = async function (req, res, next) {
 		}
 
 		const loginStrategies = require('../routes/authentication').getLoginStrategies();
+		const suggestedUserName = nid();
 		res.render('register', {
 			'register_window:spansize': loginStrategies.length ? 'col-md-6' : 'col-md-12',
 			alternate_logins: !!loginStrategies.length,
 			authentication: loginStrategies,
 
+			suggestedUserName: suggestedUserName,
 			minimumUsernameLength: meta.config.minimumUsernameLength,
 			maximumUsernameLength: meta.config.maximumUsernameLength,
 			minimumPasswordLength: meta.config.minimumPasswordLength,
