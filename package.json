@@ -98,7 +98,7 @@
     "nodebb-plugin-imgur": "^2.0.4",
     "nodebb-plugin-markdown": "8.14.4",
     "nodebb-plugin-mentions": "2.14.1",
-    "nodebb-plugin-spam-be-gone": "0.7.10",
+    "nodebb-plugin-spam-be-gone": "^0.7.11",
     "nodebb-rewards-essentials": "0.2.0",
     "nodebb-theme-anon": "git+http://github.com/nirnirs/nodebb-theme-anon.git",
     "nodebb-theme-lavender": "5.2.1",
