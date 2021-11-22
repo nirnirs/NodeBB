@@ -28,7 +28,6 @@ pidfile
 # templates
 /public/templates
 
-/public/uploads
 /test/uploads
 
 # compiled files
