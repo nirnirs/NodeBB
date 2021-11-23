@@ -1,11 +1,10 @@
 # P0
+- make it so that users can't change interface languages.
 - add about page explaning stuff (faq)
 - change it alerts settings don't have email options.
 - Update all texts (e.g. error message for emails with wrong domains)
 - verify there's no full name from all forms
 - make sure non-verified users can't post.
-- make sure users can't change interfae languages.
-
 
 # P1
 - differnet color scheme.
