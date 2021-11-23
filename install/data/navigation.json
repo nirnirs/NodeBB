@@ -58,6 +58,14 @@
 		"text": "[[global:header.groups]]"
 	},
 	{
+		"route": "/faq",
+		"title": "[[global:header.faq]]",
+		"enabled": true,
+		"iconClass": "fa-question",
+		"textClass": "visible-xs-inline",
+		"text": "[[global:header.faq]]"
+	},
+	{
 		"route": "/admin",
 		"title": "[[global:header.admin]]",
 		"enabled": true,
