@@ -71,6 +71,7 @@ module.exports = function (User) {
 		}
 
 		const results = await plugins.hooks.fire('filter:user.create', { user: userData, data: data });
+		winston.info(`results after callinge filter:user.create: ${JSON.stringify(results)}`);
 		userData = results.user;
 
 		const uid = await db.incrObjectField('global', 'nextUid');
