@@ -17,120 +17,121 @@ const helpers = require('./helpers');
 const { setupPageRoute } = helpers;
 
 const _mounts = {
-	user: require('./user'),
-	meta: require('./meta'),
-	api: require('./api'),
-	admin: require('./admin'),
-	feed: require('./feeds'),
+    user: require('./user'),
+    meta: require('./meta'),
+    api: require('./api'),
+    admin: require('./admin'),
+    feed: require('./feeds'),
 };
 
 _mounts.main = (app, middleware, controllers) => {
-	const loginRegisterMiddleware = [middleware.redirectToAccountIfLoggedIn];
+    const loginRegisterMiddleware = [middleware.redirectToAccountIfLoggedIn];
 
-	setupPageRoute(app, '/login', middleware, loginRegisterMiddleware, controllers.login);
-	setupPageRoute(app, '/register', middleware, loginRegisterMiddleware, controllers.register);
-	setupPageRoute(app, '/register/complete', middleware, [], controllers.registerInterstitial);
-	setupPageRoute(app, '/compose', middleware, [], controllers.composer.get);
-	setupPageRoute(app, '/confirm/:code', middleware, [], controllers.confirmEmail);
-	setupPageRoute(app, '/outgoing', middleware, [], controllers.outgoing);
-	setupPageRoute(app, '/search', middleware, [], controllers.search.search);
-	setupPageRoute(app, '/reset/:code?', middleware, [middleware.delayLoading], controllers.reset);
-	setupPageRoute(app, '/tos', middleware, [], controllers.termsOfUse);
+    setupPageRoute(app, '/login', middleware, loginRegisterMiddleware, controllers.login);
+    setupPageRoute(app, '/register', middleware, loginRegisterMiddleware, controllers.register);
+    setupPageRoute(app, '/register/complete', middleware, [], controllers.registerInterstitial);
+    setupPageRoute(app, '/compose', middleware, [], controllers.composer.get);
+    setupPageRoute(app, '/confirm/:code', middleware, [], controllers.confirmEmail);
+    setupPageRoute(app, '/outgoing', middleware, [], controllers.outgoing);
+    setupPageRoute(app, '/search', middleware, [], controllers.search.search);
+    setupPageRoute(app, '/reset/:code?', middleware, [middleware.delayLoading], controllers.reset);
+    setupPageRoute(app, '/tos', middleware, [], controllers.termsOfUse);
 
-	setupPageRoute(app, '/email/unsubscribe/:token', middleware, [], controllers.accounts.settings.unsubscribe);
-	app.post('/email/unsubscribe/:token', controllers.accounts.settings.unsubscribePost);
+    setupPageRoute(app, '/email/unsubscribe/:token', middleware, [], controllers.accounts.settings.unsubscribe);
+    app.post('/email/unsubscribe/:token', controllers.accounts.settings.unsubscribePost);
 
-	app.post('/compose', middleware.applyCSRF, controllers.composer.post);
+    app.post('/compose', middleware.applyCSRF, controllers.composer.post);
 };
 
 _mounts.mod = (app, middleware, controllers) => {
-	setupPageRoute(app, '/flags', middleware, [], controllers.mods.flags.list);
-	setupPageRoute(app, '/flags/:flagId', middleware, [], controllers.mods.flags.detail);
-	setupPageRoute(app, '/post-queue', middleware, [], controllers.mods.postQueue);
+    setupPageRoute(app, '/flags', middleware, [], controllers.mods.flags.list);
+    setupPageRoute(app, '/flags/:flagId', middleware, [], controllers.mods.flags.detail);
+    setupPageRoute(app, '/post-queue', middleware, [], controllers.mods.postQueue);
 };
 
 _mounts.globalMod = (app, middleware, controllers) => {
-	setupPageRoute(app, '/ip-blacklist', middleware, [], controllers.globalMods.ipBlacklist);
-	setupPageRoute(app, '/registration-queue', middleware, [], controllers.globalMods.registrationQueue);
+    setupPageRoute(app, '/ip-blacklist', middleware, [], controllers.globalMods.ipBlacklist);
+    setupPageRoute(app, '/registration-queue', middleware, [], controllers.globalMods.registrationQueue);
 };
 
 _mounts.topic = (app, name, middleware, controllers) => {
-	setupPageRoute(app, `/${name}/:topic_id/:slug/:post_index?`, middleware, [], controllers.topics.get);
-	setupPageRoute(app, `/${name}/:topic_id/:slug?`, middleware, [], controllers.topics.get);
+    setupPageRoute(app, `/${name}/:topic_id/:slug/:post_index?`, middleware, [], controllers.topics.get);
+    setupPageRoute(app, `/${name}/:topic_id/:slug?`, middleware, [], controllers.topics.get);
 };
 
 _mounts.post = (app, name, middleware, controllers) => {
-	const middlewares = [
-		middleware.maintenanceMode,
-		middleware.authenticateRequest,
-		middleware.registrationComplete,
-		middleware.pluginHooks,
-	];
-	app.get(`/${name}/:pid`, middleware.busyCheck, middlewares, controllers.posts.redirectToPost);
-	app.get(`/api/${name}/:pid`, middlewares, controllers.posts.redirectToPost);
+    const middlewares = [
+        middleware.maintenanceMode,
+        middleware.authenticateRequest,
+        middleware.registrationComplete,
+        middleware.pluginHooks,
+    ];
+    app.get(`/${name}/:pid`, middleware.busyCheck, middlewares, controllers.posts.redirectToPost);
+    app.get(`/api/${name}/:pid`, middlewares, controllers.posts.redirectToPost);
 };
 
 _mounts.tags = (app, name, middleware, controllers) => {
-	setupPageRoute(app, `/${name}/:tag`, middleware, [middleware.privateTagListing], controllers.tags.getTag);
-	setupPageRoute(app, `/${name}`, middleware, [middleware.privateTagListing], controllers.tags.getTags);
+    setupPageRoute(app, `/${name}/:tag`, middleware, [middleware.privateTagListing], controllers.tags.getTag);
+    setupPageRoute(app, `/${name}`, middleware, [middleware.privateTagListing], controllers.tags.getTags);
 };
 
 _mounts.category = (app, name, middleware, controllers) => {
-	setupPageRoute(app, '/categories', middleware, [], controllers.categories.list);
-	setupPageRoute(app, '/popular', middleware, [], controllers.popular.get);
-	setupPageRoute(app, '/recent', middleware, [], controllers.recent.get);
-	setupPageRoute(app, '/top', middleware, [], controllers.top.get);
-	setupPageRoute(app, '/unread', middleware, [middleware.ensureLoggedIn], controllers.unread.get);
-	setupPageRoute(app, '/faq', middleware, [], controllers.faq.get);
+    setupPageRoute(app, '/categories', middleware, [], controllers.categories.list);
+    setupPageRoute(app, '/popular', middleware, [], controllers.popular.get);
+    setupPageRoute(app, '/recent', middleware, [], controllers.recent.get);
+    setupPageRoute(app, '/top', middleware, [], controllers.top.get);
+    setupPageRoute(app, '/unread', middleware, [middleware.ensureLoggedIn], controllers.unread.get);
+    setupPageRoute(app, '/faq', middleware, [], controllers.faq.get);
+    setupPageRoute(app, '/why_work_email', middleware, [], controllers.why_work_email.get);
 
-	setupPageRoute(app, `/${name}/:category_id/:slug/:topic_index`, middleware, [], controllers.category.get);
-	setupPageRoute(app, `/${name}/:category_id/:slug?`, middleware, [], controllers.category.get);
+    setupPageRoute(app, `/${name}/:category_id/:slug/:topic_index`, middleware, [], controllers.category.get);
+    setupPageRoute(app, `/${name}/:category_id/:slug?`, middleware, [], controllers.category.get);
 };
 
 _mounts.users = (app, name, middleware, controllers) => {
-	const middlewares = [middleware.canViewUsers];
+    const middlewares = [middleware.canViewUsers];
 
-	setupPageRoute(app, `/${name}`, middleware, middlewares, controllers.users.index);
+    setupPageRoute(app, `/${name}`, middleware, middlewares, controllers.users.index);
 };
 
 _mounts.groups = (app, name, middleware, controllers) => {
-	const middlewares = [middleware.canViewGroups];
+    const middlewares = [middleware.canViewGroups];
 
-	setupPageRoute(app, `/${name}`, middleware, middlewares, controllers.groups.list);
-	setupPageRoute(app, `/${name}/:slug`, middleware, middlewares, controllers.groups.details);
-	setupPageRoute(app, `/${name}/:slug/members`, middleware, middlewares, controllers.groups.members);
+    setupPageRoute(app, `/${name}`, middleware, middlewares, controllers.groups.list);
+    setupPageRoute(app, `/${name}/:slug`, middleware, middlewares, controllers.groups.details);
+    setupPageRoute(app, `/${name}/:slug/members`, middleware, middlewares, controllers.groups.members);
 };
 
-module.exports = async function (app, middleware) {
-	const router = express.Router();
-	router.render = function (...args) {
-		app.render(...args);
-	};
+module.exports = async function(app, middleware) {
+        const router = express.Router();
+        router.render = function(...args) {
+            app.render(...args);
+        };
 
-	// Allow plugins/themes to mount some routes elsewhere
-	const remountable = ['admin', 'category', 'topic', 'post', 'users', 'user', 'groups', 'tags'];
-	const { mounts } = await plugins.hooks.fire('filter:router.add', {
-		mounts: remountable.reduce((memo, mount) => {
-			memo[mount] = mount;
-			return memo;
-		}, {}),
-	});
-	// Guard against plugins sending back missing/extra mounts
-	Object.keys(mounts).forEach((mount) => {
-		if (!remountable.includes(mount)) {
-			delete mounts[mount];
-		} else if (typeof mount !== 'string') {
-			mounts[mount] = mount;
-		}
-	});
-	remountable.forEach((mount) => {
-		if (!mounts.hasOwnProperty(mount)) {
-			mounts[mount] = mount;
-		}
-	});
+        // Allow plugins/themes to mount some routes elsewhere
+        const remountable = ['admin', 'category', 'topic', 'post', 'users', 'user', 'groups', 'tags'];
+        const { mounts } = await plugins.hooks.fire('filter:router.add', {
+            mounts: remountable.reduce((memo, mount) => {
+                memo[mount] = mount;
+                return memo;
+            }, {}),
+        });
+        // Guard against plugins sending back missing/extra mounts
+        Object.keys(mounts).forEach((mount) => {
+            if (!remountable.includes(mount)) {
+                delete mounts[mount];
+            } else if (typeof mount !== 'string') {
+                mounts[mount] = mount;
+            }
+        });
+        remountable.forEach((mount) => {
+            if (!mounts.hasOwnProperty(mount)) {
+                mounts[mount] = mount;
+            }
+        });
 
-	router.all('(/+api|/+api/*?)', middleware.prepareAPI);
-	router.all(`(/+api/admin|/+api/admin/*?${mounts.admin !== 'admin' ? `|/+api/${mounts.admin}|/+api/${mounts.admin}/*?` : ''})`, middleware.authenticateRequest, middleware.ensureLoggedIn, middleware.admin.checkPrivileges);
+        router.all('(/+api|/+api/*?)', middleware.prepareAPI);
+        router.all(`(/+api/admin|/+api/admin/*?${mounts.admin !== 'admin' ? `|/+api/${mounts.admin}|/+api/${mounts.admin}/*?` : ''})`, middleware.authenticateRequest, middleware.ensureLoggedIn, middleware.admin.checkPrivileges);
 	router.all(`(/+admin|/+admin/*?${mounts.admin !== 'admin' ? `|/+${mounts.admin}|/+${mounts.admin}/*?` : ''})`, middleware.ensureLoggedIn, middleware.applyCSRF, middleware.admin.checkPrivileges);
 
 	app.use(middleware.stripLeadingSlashes);
