@@ -90,6 +90,7 @@
     "nconf": "^0.11.2",
     "nid": "^1.3.3",
     "nodebb-plugin-composer-default": "7.0.11",
+    "nodebb-plugin-contact-page": "^1.2.0",
     "nodebb-plugin-custom-pages": "^1.3.1",
     "nodebb-plugin-dbsearch": "5.0.5",
     "nodebb-plugin-emailer-mailjet": "^1.1.0",
