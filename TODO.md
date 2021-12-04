@@ -1,6 +1,5 @@
 # P0
 - make it so that users can't change interface languages.
-- add about page explaning stuff (faq)
 - change it alerts settings don't have email options.
 - Update all texts (e.g. error message for emails with wrong domains)
 - verify there's no full name from all forms
