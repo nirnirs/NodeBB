@@ -3,7 +3,6 @@
 - change it alerts settings don't have email options.
 - Update all texts (e.g. error message for emails with wrong domains)
 - verify there's no full name from all forms
-- make sure non-verified users can't post.
 
 # P1
 - differnet color scheme.
